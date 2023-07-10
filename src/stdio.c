@@ -132,6 +132,44 @@ int tc_putln(int fd, char *s) {
 	return TC_OK;
 }
 
+/*
+ * copies a byte from src to dst
+ * returns TC_OK, TC_EOF, or TC_ERR
+ */
+int tc_copybyte(int src, int dst) {
+	int ch;
+	int rc;
+
+	ch = tc_getc(src);
+	if (ch != TC_EOF) {
+		rc = tc_putc(dst, ch);
+	}
+
+	if (ch == TC_EOF) {
+		rc = TC_EOF;
+	}
+
+	return rc;
+}
+
+/*
+ * copies n bytes from src to dst
+ * returns TC_OK, TC_EOF, or TC_ERR
+ */
+int tc_copynbytes(int src, int dst, int n) {
+
+	int i;
+	int rc;
+
+	for (i = 0; i < n; i++) {
+		rc = tc_copybyte(src, dst);
+		if (rc != TC_OK) {
+			return rc;
+		}
+	}
+
+	return TC_OK;
+}
 
 /*
  * copies a line of characters from src to dst (including the final newline)

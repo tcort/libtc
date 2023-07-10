@@ -31,6 +31,8 @@ int tc_puterr(char *msg);
 int tc_puterrln(char *msg);
 int tc_puts(int fd, char *s);
 int tc_putln(int fd, char *s);
+int tc_copybyte(int src, int dst);
+int tc_copynbytes(int src, int dst, int n);
 int tc_copyln(int src, int dst);
 int tc_copylns(int src, int dst, int n);
 void tc_putdec(int fd, int n, int w);
