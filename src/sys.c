@@ -24,7 +24,7 @@
 #include "tc/sys.h"
 
 #include <fcntl.h> /* open(2)/O_RDONLY/O_WRONLY */
-#include <stdlib.h> /* malloc(2)/free(2)/exit(2) */
+#include <stdlib.h> /* atexit(3)/mkstemp(3)/malloc(2)/free(2)/exit(2) */
 #include <sys/stat.h> /* mkdir(2)/fstat(2) */
 #include <unistd.h> /* getpid(2)/read(2)/write(2)/close(2)/ttyname(2)/sync(2)/sleep(2)/rmdir(2)/link(2)/symlink(2)/gethostid(2)/getlogin(2)/lseek(2) */
 
@@ -262,6 +262,20 @@ int tc_mkdir(char *dir, tc_mode_t mode) {
 		return TC_ERR;
 	}
 	return TC_OK;
+}
+
+/*
+ * create and open a temporary file
+ */
+int tc_mkstemp(char *template) {
+	return mkstemp(template);
+}
+
+/*
+ * install an exit handler
+ */
+int tc_atexit(void (*function)(void)) {
+	return atexit(function);
 }
 
 /*
