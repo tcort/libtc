@@ -173,7 +173,7 @@ include its own license information.
 
 <!--
   README.md
-  Copyright 2022, 2023  Thomas Cort
+  Copyright 2022, 2023, 2024  Thomas Cort
 
   Copying and distribution of this file, with or without modification, are
   permitted in any medium without royalty, provided the copyright notice and
