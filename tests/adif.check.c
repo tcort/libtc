@@ -1,5 +1,5 @@
 /*
-    tc.h - includes all headers
+    ctype.c - character type functions
     Copyright (C) 2022, 2023, 2024  Thomas Cort
 
     This program is free software: you can redistribute it and/or modify
@@ -18,32 +18,27 @@
     SPDX-License-Identifier: GPL-3.0-or-later
 */
 
-#ifndef TC_TC_H
-#define TC_TC_H
+#include <tc/tc.h>
 
-#include <tc/adif.h>
-#include <tc/args.h>
-#include <tc/check.h>
-#include <tc/colours.h>
-#include <tc/crc32.h>
-#include <tc/ctype.h>
-#include <tc/errno.h>
-#include <tc/html.h>
-#include <tc/libgen.h>
-#include <tc/limits.h>
-#include <tc/luhn.h>
-#include <tc/math.h>
-#include <tc/md2.h>
-#include <tc/mtrand.h>
-#include <tc/nanoid.h>
-#include <tc/re.h>
-#include <tc/stdint.h>
-#include <tc/stdio.h>
-#include <tc/stdlib.h>
-#include <tc/string.h>
-#include <tc/sys.h>
-#include <tc/tar.h>
-#include <tc/version.h>
-#include <tc/wav.h>
+static int check_valid_data_type_specifiers(void) {
+	return
+		tc_adif_is_valid_data_type_specifier('B') &&
+		tc_adif_is_valid_data_type_specifier('N') &&
+		tc_adif_is_valid_data_type_specifier('D') &&
+		tc_adif_is_valid_data_type_specifier('T') &&
+		tc_adif_is_valid_data_type_specifier('S') &&
+		tc_adif_is_valid_data_type_specifier('M') &&
+		tc_adif_is_valid_data_type_specifier('E') &&
+		tc_adif_is_valid_data_type_specifier('L') ?
+			TC_CHECK_PASS : TC_CHECK_FAIL;
+}
 
-#endif
+int main(int argc, char *argv[]) {
+
+	static struct check checks[] = {
+		{ check_valid_data_type_specifiers, "valid data type specifiers are recognized correctly" },
+		{ TC_NULL, TC_NULL }
+	};
+
+	return tc_check(checks);
+}

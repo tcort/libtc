@@ -1,5 +1,5 @@
 /*
-    tc.h - includes all headers
+    adif.h -- Amateur Data Interchange Format (ADIF)
     Copyright (C) 2022, 2023, 2024  Thomas Cort
 
     This program is free software: you can redistribute it and/or modify
@@ -18,32 +18,25 @@
     SPDX-License-Identifier: GPL-3.0-or-later
 */
 
-#ifndef TC_TC_H
-#define TC_TC_H
+#include "tc/adif.h"
+#include "tc/ctype.h"
+#include "tc/stdlib.h"
 
-#include <tc/adif.h>
-#include <tc/args.h>
-#include <tc/check.h>
-#include <tc/colours.h>
-#include <tc/crc32.h>
-#include <tc/ctype.h>
-#include <tc/errno.h>
-#include <tc/html.h>
-#include <tc/libgen.h>
-#include <tc/limits.h>
-#include <tc/luhn.h>
-#include <tc/math.h>
-#include <tc/md2.h>
-#include <tc/mtrand.h>
-#include <tc/nanoid.h>
-#include <tc/re.h>
-#include <tc/stdint.h>
-#include <tc/stdio.h>
-#include <tc/stdlib.h>
-#include <tc/string.h>
-#include <tc/sys.h>
-#include <tc/tar.h>
-#include <tc/version.h>
-#include <tc/wav.h>
+int tc_adif_is_valid_data_type_specifier(char ch) {
+	switch (tc_toupper(ch)) {
+		case 'B': return 1; /* Boolean */
+		case 'N': return 1; /* Number */
+		case 'D': return 1; /* Date */
+		case 'T': return 1; /* Time */
+		case 'S': return 1; /* String */
+		case 'M': return 1; /* Multiline String */
+		case 'E': return 1; /* Enumeration */
+		case 'L': return 1; /* Location */
+		default : return 0;
+	}
 
-#endif
+}
+
+struct tc_adif *tc_adif_parse(char *adif) {
+	return TC_NULL;
+}

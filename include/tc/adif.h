@@ -1,5 +1,5 @@
 /*
-    tc.h - includes all headers
+    adif.h -- Amateur Data Interchange Format (ADIF)
     Copyright (C) 2022, 2023, 2024  Thomas Cort
 
     This program is free software: you can redistribute it and/or modify
@@ -18,32 +18,35 @@
     SPDX-License-Identifier: GPL-3.0-or-later
 */
 
-#ifndef TC_TC_H
-#define TC_TC_H
+#ifndef TC_ADIF_H
+#define TC_ADIF_H
 
-#include <tc/adif.h>
-#include <tc/args.h>
-#include <tc/check.h>
-#include <tc/colours.h>
-#include <tc/crc32.h>
-#include <tc/ctype.h>
-#include <tc/errno.h>
-#include <tc/html.h>
-#include <tc/libgen.h>
-#include <tc/limits.h>
-#include <tc/luhn.h>
-#include <tc/math.h>
-#include <tc/md2.h>
-#include <tc/mtrand.h>
-#include <tc/nanoid.h>
-#include <tc/re.h>
-#include <tc/stdint.h>
-#include <tc/stdio.h>
-#include <tc/stdlib.h>
-#include <tc/string.h>
-#include <tc/sys.h>
-#include <tc/tar.h>
-#include <tc/version.h>
-#include <tc/wav.h>
+#include "stdint.h"
+
+struct tc_adif_data_specifier {
+	char *key;
+	tc_uint32_t length;
+	char type;
+};
+
+struct tc_adif_field {
+	struct tc_adif_data_specifier data_specifier;
+	char *data;
+};
+
+struct tc_adif_record {
+	struct tc_adif_field **fields;
+};
+
+typedef struct tc_adif_record tc_adif_header;
+typedef struct tc_adif_record tc_adif_qso;
+
+struct tc_adif {
+	struct tc_adif_header *header;
+	struct tc_adif_qso **qsos;
+};
+
+int tc_adif_is_valid_data_type_specifier(char ch);
+struct tc_adif *tc_adif_parse(char *adif);
 
 #endif

@@ -64,6 +64,7 @@ endforeach()
 
 ## Testing
 
+list(APPEND TESTS adif.check)
 list(APPEND TESTS ctype.check)
 list(APPEND TESTS errno.check)
 list(APPEND TESTS html.check)
