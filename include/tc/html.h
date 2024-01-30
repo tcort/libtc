@@ -22,6 +22,7 @@
 #define TC_HTML_H
 
 char *tc_html_entity(char ch);
+char *tc_html_encode_entities(const char *input);
 char *tc_html_color_rgb(char *name);
 
 #endif

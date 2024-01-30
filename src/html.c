@@ -21,6 +21,7 @@
 #include "tc/html.h"
 #include "tc/string.h"
 #include "tc/stdlib.h"
+#include "tc/sys.h"
 
 struct html_entity {
 	char ch;
@@ -47,6 +48,31 @@ char *tc_html_entity(char ch) {
 	}
 
 	return TC_NULL;
+}
+
+char *tc_html_encode_entities(const char *input) {
+
+	int i;
+	char *output;
+	char *tmp;
+
+	output = TC_NULL;
+	for (i = 0; i < tc_strlen(input); i++) {
+		char ch[2] = { input[i], '\0' };
+		char *encoded = tc_html_entity(ch[0]);
+
+		tmp = output;
+		output = tc_strconcat(output, encoded == TC_NULL ? ch : encoded);
+		if (tmp != TC_NULL) {
+			tmp = tc_free(tmp);
+		}
+		if (output == TC_NULL) {
+			return TC_NULL;
+		}
+
+	}
+
+	return output;
 }
 
 struct html_color {

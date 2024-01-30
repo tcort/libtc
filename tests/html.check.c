@@ -36,6 +36,13 @@ static int check_html_color_found(void) {
 	return tc_streql(tc_html_color_rgb("purple"), "#800080") == 1 ? TC_CHECK_PASS : TC_CHECK_FAIL;
 }
 
+static int check_html_encode_entities(void) {
+	char *output = tc_html_encode_entities("<p>");
+	int rc = tc_streql(output,"&lt;p&gt;");
+	output = tc_free(output);
+	return rc == 1 ? TC_CHECK_PASS : TC_CHECK_FAIL;
+}
+
 int main(int argc, char *argv[]) {
 
 	static struct check checks[] = {
@@ -43,6 +50,7 @@ int main(int argc, char *argv[]) {
 		{ check_html_entity_found,	"\" returns \"&quot;\"" },
 		{ check_html_color_not_found,	"returns TC_NULL when no color" },
 		{ check_html_color_found,	"\"purple\" returns \"#800080\"" },
+		{ check_html_encode_entities,	"\"<p>\" returns \"&lt;p&gt;\"" },
 		{ TC_NULL, TC_NULL }
 	};
 
