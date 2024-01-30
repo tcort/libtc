@@ -23,6 +23,10 @@
 
 #include "stdint.h"
 
+#define TC_ADIF_DATA_SPECIFIER_BEGIN ('<')
+#define TC_ADIF_DATA_SPECIFIER_SEP (':')
+#define TC_ADIF_DATA_SPECIFIER_END ('>')
+
 struct tc_adif_data_specifier {
 	char *key;
 	tc_uint32_t length;
@@ -30,7 +34,7 @@ struct tc_adif_data_specifier {
 };
 
 struct tc_adif_field {
-	struct tc_adif_data_specifier data_specifier;
+	struct tc_adif_data_specifier *data_specifier;
 	char *data;
 };
 

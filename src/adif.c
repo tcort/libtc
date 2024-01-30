@@ -21,6 +21,8 @@
 #include "tc/adif.h"
 #include "tc/ctype.h"
 #include "tc/stdlib.h"
+#include "tc/string.h"
+#include "tc/sys.h"
 
 int tc_adif_is_valid_data_type_specifier(char ch) {
 	switch (tc_toupper(ch)) {
@@ -37,6 +39,48 @@ int tc_adif_is_valid_data_type_specifier(char ch) {
 
 }
 
+static int tc_adif_find_char(char *adif, int *i, char ch) {
+	return tc_strchr(&(adif[*i]), ch);
+}
+
+static int tc_adif_find_data_specifier_begin(char *adif, int *i) {
+	return tc_adif_find_char(adif, i, TC_ADIF_DATA_SPECIFIER_BEGIN);
+}
+
+static int tc_adif_find_data_specifier_sep(char *adif, int *i) {
+	return tc_adif_find_char(adif, i, TC_ADIF_DATA_SPECIFIER_SEP);
+}
+
+static int tc_adif_find_data_specifier_end(char *adif, int *i) {
+	return tc_adif_find_char(adif, i, TC_ADIF_DATA_SPECIFIER_END);
+}
+
+struct tc_adif_data_specifier *tc_adif_parse_data_specifier(char *adif, int *i) {
+
+	int pos;
+	struct tc_adif_data_specifier *ds;
+
+	pos = tc_adif_find_data_specifier_begin(adif, i);
+	if (pos == -1) {
+		return TC_NULL;
+	}
+
+	*i = pos + 1; /* advance to start of key */
+
+
+
+	return ds;
+}
+
 struct tc_adif *tc_adif_parse(char *adif) {
+
+	int i;
+
+	i = 0;
+
+	if (adif == TC_NULL || tc_strlen(adif) == 0) {
+		return TC_NULL;
+	}
+
 	return TC_NULL;
 }
