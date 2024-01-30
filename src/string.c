@@ -88,6 +88,33 @@ char *tc_strgrow(char *s, int newsize) {
 }
 
 /*
+ * Create a new string which contains string x and y one after another.
+ * Return the combined string.
+ */
+char *tc_strconcat(const char *x, const char *y) {
+
+	char *output;
+
+	if (x == TC_NULL && y == TC_NULL) {
+		return TC_NULL;
+	} else if (x == TC_NULL) {
+		return tc_strdup(y);
+	} else if (y == TC_NULL) {
+		return tc_strdup(x);
+	}
+
+	output = tc_malloc(tc_strlen(x) + tc_strlen(y) + 1);
+	if (output == TC_NULL) {
+		return TC_NULL;
+	}
+
+	tc_memcpy(output, x, tc_strlen(x));
+	tc_memcpy(&(output[tc_strlen(x)]), y, tc_strlen(y));
+
+	return output;
+}
+
+/*
  * Computes the length of a string.
  * Return the length of string s.
  */

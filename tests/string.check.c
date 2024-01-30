@@ -128,6 +128,15 @@ static int check_strlist_includes_not_found(void) {
 	return tc_strlist_includes(list, "quux") == 0 ? TC_CHECK_PASS : TC_CHECK_FAIL;
 }
 
+static int check_strconcat(void) {
+	char *x = "foo";
+	char *y = "bar";
+	char *z = tc_strconcat(x, y);
+	int rc = tc_streql(z, "foobar");
+	z = tc_free(z);
+	return rc == 1 ? TC_CHECK_PASS : TC_CHECK_FAIL;
+}
+
 int main(int argc, char *argv[]) {
 
 	static struct check checks[] = {
@@ -169,6 +178,7 @@ int main(int argc, char *argv[]) {
 		{ check_strlist_includes_mid, "finds \"bar\" in list" },
 		{ check_strlist_includes_last, "finds \"baz\" in list" },
 		{ check_strlist_includes_not_found, "does not find \"quux\" in list" },
+		{ check_strconcat, "\"foo\" concat \"bar\" is \"foobar\"" },
 		{ TC_NULL, TC_NULL }
 	};
 

@@ -30,6 +30,7 @@ void tc_memset(void *s, char ch, int len);
 void *tc_memcpy(void *dst, const void *src, int len);
 void tc_strcpy(char *dst, const char *src);
 char *tc_strgrow(char *s, int newsize);
+char *tc_strconcat(const char *x, const char *y);
 int tc_strlen(const char *s);
 int tc_strneql(const char *x, const char *y, int n);
 int tc_streql(const char *x, const char *y);
