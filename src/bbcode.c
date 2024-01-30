@@ -1,5 +1,5 @@
 /*
-    tc.h - includes all headers
+    bbcode.c - BBCode to HTML converter
     Copyright (C) 2022, 2023, 2024  Thomas Cort
 
     This program is free software: you can redistribute it and/or modify
@@ -18,34 +18,46 @@
     SPDX-License-Identifier: GPL-3.0-or-later
 */
 
-#ifndef TC_TC_H
-#define TC_TC_H
+#include "tc/bbcode.h"
+#include "tc/html.h"
+#include "tc/stdlib.h"
+#include "tc/stack.h"
+#include "tc/sys.h"
 
-#include <tc/adif.h>
-#include <tc/args.h>
-#include <tc/bbcode.h>
-#include <tc/check.h>
-#include <tc/colours.h>
-#include <tc/crc32.h>
-#include <tc/ctype.h>
-#include <tc/errno.h>
-#include <tc/html.h>
-#include <tc/libgen.h>
-#include <tc/limits.h>
-#include <tc/luhn.h>
-#include <tc/math.h>
-#include <tc/md2.h>
-#include <tc/mtrand.h>
-#include <tc/nanoid.h>
-#include <tc/re.h>
-#include <tc/stack.h>
-#include <tc/stdint.h>
-#include <tc/stdio.h>
-#include <tc/stdlib.h>
-#include <tc/string.h>
-#include <tc/sys.h>
-#include <tc/tar.h>
-#include <tc/version.h>
-#include <tc/wav.h>
+char *tc_bbcode_to_html(char *bbcode) {
 
-#endif
+	int i;
+	int in_tag;
+	char *input;
+	struct tc_stack *stack;
+	char *output;
+	char *token;
+
+	in_tag = 0;
+	output = TC_NULL;
+	token = TC_NULL;
+
+	if (bbcode == TC_NULL) {
+		return TC_NULL;
+	}
+
+	stack = tc_stack_malloc();
+	if (stack == TC_NULL) {
+		return TC_NULL;
+	}
+
+	input = tc_html_encode_entities(bbcode);
+	if (input == TC_NULL) {
+		return TC_NULL;
+	}
+
+	for (i = 0; i < tc_strlen(input); i++) {
+
+	}
+
+
+	stack = tc_stack_free(stack);
+	input = tc_free(input);
+
+	return output;
+}

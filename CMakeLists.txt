@@ -73,6 +73,7 @@ list(APPEND TESTS luhn.check)
 list(APPEND TESTS math.check)
 list(APPEND TESTS md2.check)
 list(APPEND TESTS mtrand.check)
+list(APPEND TESTS stack.check)
 list(APPEND TESTS string.check)
 
 enable_testing(true)
