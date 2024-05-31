@@ -21,6 +21,7 @@
 #include "tc/bbcode.h"
 #include "tc/html.h"
 #include "tc/stdlib.h"
+#include "tc/string.h"
 #include "tc/stack.h"
 #include "tc/sys.h"
 
