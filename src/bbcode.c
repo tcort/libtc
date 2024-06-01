@@ -18,11 +18,11 @@
     SPDX-License-Identifier: GPL-3.0-or-later
 */
 
+#include "tc/array.h"
 #include "tc/bbcode.h"
 #include "tc/html.h"
 #include "tc/stdlib.h"
 #include "tc/string.h"
-#include "tc/stack.h"
 #include "tc/sys.h"
 
 char *tc_bbcode_to_html(char *bbcode) {
@@ -30,7 +30,6 @@ char *tc_bbcode_to_html(char *bbcode) {
 	int i;
 	int in_tag;
 	char *input;
-	struct tc_stack *stack;
 	char *output;
 	char *token;
 
@@ -42,11 +41,6 @@ char *tc_bbcode_to_html(char *bbcode) {
 		return TC_NULL;
 	}
 
-	stack = tc_stack_malloc();
-	if (stack == TC_NULL) {
-		return TC_NULL;
-	}
-
 	input = tc_html_encode_entities(bbcode);
 	if (input == TC_NULL) {
 		return TC_NULL;
@@ -54,11 +48,50 @@ char *tc_bbcode_to_html(char *bbcode) {
 
 	for (i = 0; i < tc_strlen(input); i++) {
 
+		int ch = input[i];
+
+		if (in_tag && ch == ']') {
+			char s[2] = { ch, '\0' };
+			token = tc_strconcat(token, s);
+			if (token == TC_NULL) {
+				break;
+			}
+
+			in_tag = 0;
+
+			if (token[1] == '/') {
+				/* end tag */;
+			} else if (tc_index_of(tc_bbcode_standalone_tags, token, tc_strcmp) != -1) {
+				/* stand along tag */;
+			} else {
+				/* start tag */;
+			}
+
+		} else if (!in_tag && ch == '[') {
+
+			i = i - 1;
+			in_tag = 1;
+
+			if (tc_strlen(token) > 0) {
+				/* this.text(token) */
+			}
+
+			token = tc_free(token);
+
+		} else {
+			char s[2] = { ch, '\0' };
+			token = tc_strconcat(token, s);
+			if (token == TC_NULL) {
+				break;
+			}
+		}
+
 	}
+	output = tc_strconcat(output, &input[i]);
 
 
-	stack = tc_stack_free(stack);
 	input = tc_free(input);
+	token = tc_free(token);
 
 	return output;
 }

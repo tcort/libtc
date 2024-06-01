@@ -21,5 +21,12 @@
 #ifndef TC_BBCODE_H
 #define TC_BBCODE_H
 
+#include "stdlib.h"
+
+char *tc_bbcode_standalone_tags[] = {
+	"nbsp",
+	"hr",
+	TC_NULL
+};
 
 #endif

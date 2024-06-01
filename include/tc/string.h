@@ -36,6 +36,8 @@ int tc_strneql(const char *x, const char *y, int n);
 int tc_streql(const char *x, const char *y);
 int tc_strncaseeql(const char *x, const char *y, int n);
 int tc_strcaseeql(const char *x, const char *y);
+int tc_strcmp(const char *x, const char *y);
+int tc_strcasecmp(const char *x, const char *y);
 char *tc_strdup(const char *s);
 char *tc_itoa(int n);
 char *tc_utoa(unsigned int n);

@@ -25,6 +25,13 @@ static int check_strlen_empty(void) { return tc_strlen("") == 0 ? TC_CHECK_PASS 
 static int check_strlen_one(void) { return tc_strlen("X") == 1 ? TC_CHECK_PASS : TC_CHECK_FAIL; }
 static int check_strlen_many(void) { return tc_strlen("foo") == 3 ? TC_CHECK_PASS : TC_CHECK_FAIL; }
 
+static int check_strcmp_foo_bar(void) { return tc_strcmp("foo", "bar") == 1 ? TC_CHECK_PASS : TC_CHECK_FAIL; }
+static int check_strcmp_foo_food(void) { return tc_strcmp("foo", "food") == -1 ? TC_CHECK_PASS : TC_CHECK_FAIL; }
+static int check_strcmp__food(void) { return tc_strcmp("", "food") == -1 ? TC_CHECK_PASS : TC_CHECK_FAIL; }
+static int check_strcmp_foo_foo(void) { return tc_strcmp("foo", "foo") == 0 ? TC_CHECK_PASS : TC_CHECK_FAIL; }
+
+static int check_strcasecmp_foo_FOO(void) { return tc_strcasecmp("foo", "FOO") == 0 ? TC_CHECK_PASS : TC_CHECK_FAIL; }
+
 static int check_itoa_neg(void) {
 	int rc;
 	char *s;
@@ -179,6 +186,11 @@ int main(int argc, char *argv[]) {
 		{ check_strlist_includes_last, "finds \"baz\" in list" },
 		{ check_strlist_includes_not_found, "does not find \"quux\" in list" },
 		{ check_strconcat, "\"foo\" concat \"bar\" is \"foobar\"" },
+		{ check_strcmp_foo_bar, "\"foo\" cmp \"bar\" is 1"},
+		{ check_strcmp_foo_food, "\"foo\" cmp \"food\" is -1"},
+		{ check_strcmp__food, "\"\" cmp \"food\" is -1"},
+		{ check_strcmp_foo_foo, "\"foo\" cmp \"foo\" is 0"},
+		{ check_strcasecmp_foo_FOO, "\"foo\" cmp \"FOO\" is 0"},
 		{ TC_NULL, TC_NULL }
 	};
 

@@ -211,7 +211,6 @@ int tc_strcaseeql(const char *x, const char *y) {
 	return 1;
 }
 
-
 /*
  * Compare string x with string y
  * This is not a constant time equality check.
@@ -236,6 +235,68 @@ int tc_streql(const char *x, const char *y) {
 	}
 
 	return 1;
+}
+
+/*
+ * Compare string x with string y
+ * Returns 0 if equal, 1 if x > y, -1 of y > x
+ */
+int tc_strcmp(const char *x, const char *y) {
+
+	int i;
+
+	if (x == y) { /* both the same */
+		return 0;
+	} else if (x == TC_NULL) {
+		return -1;
+	} else if (y == TC_NULL) {
+		return 1;
+	} else if (tc_strlen(x) == 0) {
+		return -1;
+	} else if (tc_strlen(y) == 0) {
+		return 1;
+	}
+
+	for (i = 0; i < tc_min(tc_strlen(x), tc_strlen(y)); i++) {
+		if (x[i] > y[i]) {
+			return 1;
+		} else if (x[i] < y[i]) {
+			return -1;
+		}
+	}
+
+	return tc_strlen(x) - tc_strlen(y);
+}
+
+/*
+ * Compare string x with string y without regard to case
+ * Returns 0 if equal, 1 if x > y, -1 of y > x
+ */
+int tc_strcasecmp(const char *x, const char *y) {
+
+	int i;
+
+	if (x == y) { /* both the same */
+		return 0;
+	} else if (x == TC_NULL) {
+		return -1;
+	} else if (y == TC_NULL) {
+		return 1;
+	} else if (tc_strlen(x) == 0) {
+		return -1;
+	} else if (tc_strlen(y) == 0) {
+		return 1;
+	}
+
+	for (i = 0; i < tc_min(tc_strlen(x), tc_strlen(y)); i++) {
+		if (tc_tolower(x[i]) > tc_tolower(y[i])) {
+			return -1;
+		} else if (tc_tolower(x[i]) < tc_tolower(y[i])) {
+			return 1;
+		}
+	}
+
+	return tc_strlen(x) - tc_strlen(y);
 }
 
 /*
