@@ -21,6 +21,11 @@
 #ifndef TC_ARRAY_H
 #define TC_ARRAY_H
 
-int tc_index_of(char *haystack[], char *needle, int (*compar)(const char *a, const char *b));
+char **tc_array_malloc(int nelements);
+int tc_array_index_of(char *haystack[], char *needle, int (*compar)(const char *a, const char *b));
+int tc_array_length(char *array[]);
+void tc_array_copy(char **dst, char **src);
+char **tc_array_append(char *old_array[], char *element);
+char **tc_array_free(char *array[]);
 
 #endif

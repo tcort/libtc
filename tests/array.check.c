@@ -20,7 +20,7 @@
 
 #include <tc/tc.h>
 
-static int check_index_of(void) {
+static int check_array_index_of(void) {
 	char *array[] = {
 		"FOO",
 		"BAR",
@@ -29,17 +29,17 @@ static int check_index_of(void) {
 	};
 
 	return 
-		tc_index_of(array, "FOO", tc_strcmp) ==  0 &&
-		tc_index_of(array, "BAR", tc_strcmp) ==  1 &&
-		tc_index_of(array, "BAZ", tc_strcmp) ==  2 &&
-		tc_index_of(array, "BAM", tc_strcmp) == -1 ?
+		tc_array_index_of(array, "FOO", tc_strcmp) ==  0 &&
+		tc_array_index_of(array, "BAR", tc_strcmp) ==  1 &&
+		tc_array_index_of(array, "BAZ", tc_strcmp) ==  2 &&
+		tc_array_index_of(array, "BAM", tc_strcmp) == -1 ?
 			TC_CHECK_PASS : TC_CHECK_FAIL;
 }
 
 int main(int argc, char *argv[]) {
 
 	static struct check checks[] = {
-		{ check_index_of, "can find needle in haystack using compar" },
+		{ check_array_index_of, "can find needle in haystack using compar" },
 		{ TC_NULL, TC_NULL }
 	};
 

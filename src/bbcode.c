@@ -61,7 +61,7 @@ char *tc_bbcode_to_html(char *bbcode) {
 
 			if (token[1] == '/') {
 				/* end tag */;
-			} else if (tc_index_of(tc_bbcode_standalone_tags, token, tc_strcmp) != -1) {
+			} else if (tc_array_index_of(tc_bbcode_standalone_tags, token, tc_strcmp) != -1) {
 				/* stand along tag */;
 			} else {
 				/* start tag */;
