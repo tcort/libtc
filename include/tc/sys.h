@@ -55,5 +55,6 @@ int tc_is_directory(int fd);
 int tc_is_file(int fd);
 int tc_unlink(const char *path);
 tc_int32_t tc_lseek(int fd, tc_int32_t pos, int whence);
+int tc_execvp(char *cmd, char **cmd_args);
 
 #endif

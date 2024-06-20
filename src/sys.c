@@ -26,7 +26,7 @@
 #include <fcntl.h> /* open(2)/O_RDONLY/O_WRONLY */
 #include <stdlib.h> /* atexit(3)/mkstemp(3)/malloc(2)/free(2)/exit(2) */
 #include <sys/stat.h> /* mkdir(2)/fstat(2) */
-#include <unistd.h> /* getpid(2)/read(2)/write(2)/close(2)/ttyname(2)/sync(2)/sleep(2)/rmdir(2)/link(2)/symlink(2)/gethostid(2)/getlogin(2)/lseek(2) */
+#include <unistd.h> /* getpid(2)/read(2)/write(2)/close(2)/ttyname(2)/sync(2)/sleep(2)/rmdir(2)/link(2)/symlink(2)/gethostid(2)/getlogin(2)/lseek(2)/execvp(3) */
 
 /*
  * Read a character from file descriptor fd
@@ -348,4 +348,13 @@ tc_int32_t tc_lseek(int fd, tc_int32_t pos, int whence) {
 	}
 
 	return offset;
+}
+
+int tc_execvp(char *cmd, char **cmd_args) {
+	int rc;
+	rc = execvp(cmd, cmd_args);
+	if (rc == -1) {
+		return TC_ERR;
+	}
+	return TC_OK;
 }
