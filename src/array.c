@@ -80,7 +80,7 @@ void tc_array_copy(char **dst, char **src) {
 		return;
 	}
 
-	for (i = 0; i <  len; i++) {
+	for (i = 0; i < len; i++) {
 		dst[i] = src[i];
 	}
 }
@@ -95,7 +95,7 @@ char **tc_array_append(char *old_array[], char *element) {
 		return TC_NULL;
 	}
 
-	new_array = tc_malloc(len + 1);
+	new_array = tc_array_malloc(len + 1);
 	if (new_array == TC_NULL) {
 		old_array = tc_array_free(old_array);
 		return TC_NULL;
@@ -103,7 +103,7 @@ char **tc_array_append(char *old_array[], char *element) {
 
 	tc_array_copy(new_array, old_array);
 	new_array[len] = element;
-	old_array = tc_array_free(old_array);
+	old_array = tc_free(old_array);
 
 	return new_array;
 }
