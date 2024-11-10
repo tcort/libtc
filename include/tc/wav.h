@@ -48,7 +48,7 @@ struct tc_wav_fmt_chunk {
 	tc_int16_t block_align;
 	tc_int16_t bits_per_sample;
 	char data_tag[4];
-	tc_int32_t data_size;
+	tc_uint32_t data_size;
 };
 
 int tc_wav_open_writer(char *filepath);
